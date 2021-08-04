@@ -41,7 +41,8 @@ class Results extends React.Component<ResultsProp, {}> {
                 <Card title="Highest frequency" children={<Number number={this.props.results.highestFrequency} />} />
                 {this.props.wordToSearch && 
                     <Card title="Frequency for word" children={<Number text={this.props.wordToSearch} number={this.props.results.frequencyForWord} />} />}
-                <Card title="Most frequent N words" children={this.props.results.mostFrequentNWords.map(result => <Row key={result.getWord()} title={result.getWord()} number={result.getFrequency()} />)} />
+                {this.props.results.mostFrequentNWords.length > 0 &&
+                    <Card title="Most frequent N words" children={this.props.results.mostFrequentNWords.map(result => <Row key={result.getWord()} title={result.getWord()} number={result.getFrequency()} />)} />}
             </section>
         );
     }

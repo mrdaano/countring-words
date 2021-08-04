@@ -66,18 +66,19 @@ export default class WordFrequencyAnalyzer implements IWordFrequencyAnalyzer {
         }
 
         const formattedText = this.formatText(text);
+        const pattern = /\w+/gm;
 
-        const textArray = formattedText.split(' ');
+        const textArray = formattedText.match(pattern);
         const frequencyMap: {[key: string]: number} = {};
 
-        for (const word of textArray) {
+        textArray?.forEach(word => {
             if (frequencyMap[word] ?? false) {
                 frequencyMap[word]++;
-                continue;
+                return;
             }
 
             frequencyMap[word] = 1;
-        }
+        })
         
         return Object.keys(frequencyMap)
             .map(word => new WordFrequency(word, frequencyMap[word]))
@@ -91,9 +92,6 @@ export default class WordFrequencyAnalyzer implements IWordFrequencyAnalyzer {
      */
     private formatText(text: string): string {
         return text.toLocaleLowerCase()
-        .replace(',', '')
-        .replace('-', '')
-        .replace('.', '')
         // Remove tabs and newlines.
         .replace(/(\r\n|\n|\r|\t|\\t|\\n|\\r|\\r\\n)/gm, '')
         // Replace multiple whitespaces with one.
