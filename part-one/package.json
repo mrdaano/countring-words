@@ -1,8 +1,8 @@
 {
-  "name": "wordcounter",
+  "name": "word-frequency-analyzer",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "mocha -r ts-node/register tests/**/*.test.ts"
   },

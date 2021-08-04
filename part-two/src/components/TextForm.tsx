@@ -37,7 +37,7 @@ class TextForm extends React.Component<TextFormProps, TextFormState> {
                 <p className="text-base text-gray-200 mb-2">
                     Type or paste here below the text you want to analyse.
                 </p>
-                <textarea onChange={this.handleInput} className="bg-white border border-black w-full h-72 mb-2"></textarea>
+                <textarea onChange={this.handleInput} className="bg-white rounded-md p-2 border border-black w-full h-72 mb-2"></textarea>
                 <div className="flex justify-end">
                     <Button onClick={this.sendForm} children="analyse" />
                 </div>
