@@ -49,19 +49,19 @@ class App extends React.Component<{}, AppState> {
         this.analyse = this.analyse.bind(this);
     }
 
-    wordToSearchChange(wordToSearch: string) {
+    private wordToSearchChange(wordToSearch: string) {
         this.setState({
             wordToSearch
         }, () => this.state.analysed && this.analyse());
     }
 
-    numberOfResultsChange(numberOfResults: number) {
+    private numberOfResultsChange(numberOfResults: number) {
         this.setState({
             numberOfResults,
         }, () => this.state.analysed && this.analyse());
     }
 
-    setTextInput(text: string) {
+    private setTextInput(text: string) {
         this.setState({
             text,
         }, this.analyse);
