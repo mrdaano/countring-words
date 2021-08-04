@@ -2,6 +2,7 @@ import React from 'react';
 import WordFrequencyAnalyzer, { IWordFrequency } from 'word-frequency-analyzer';
 import Alert from './components/Alert';
 import Results from './components/Results';
+import Searchbar from './components/Searchbar';
 import TextForm from './components/TextForm';
 
 export type ResultState = {
@@ -14,6 +15,7 @@ type AppState = {
     analysed: boolean,
     wordToSearch: string,
     numberOfResults: number,
+    text: string,
     results: ResultState,
 };
 
@@ -27,6 +29,7 @@ class App extends React.Component<{}, AppState> {
             analysed: false,
             wordToSearch: '',
             numberOfResults: 5,
+            text: '',
             results: {
                 highestFrequency: 0,
                 frequencyForWord: 0,
@@ -36,13 +39,38 @@ class App extends React.Component<{}, AppState> {
 
         this.analyzer = new WordFrequencyAnalyzer();
 
+        this.bindFunctions();
+    }
+
+    private bindFunctions() {
+        this.wordToSearchChange = this.wordToSearchChange.bind(this);
+        this.numberOfResultsChange = this.numberOfResultsChange.bind(this);
+        this.setTextInput = this.setTextInput.bind(this);
         this.analyse = this.analyse.bind(this);
     }
 
-    analyse(text: string) {
-        const highestFrequency = this.analyzer.calculateHighestFrequency(text);
-        const frequencyForWord = this.analyzer.calculateFrequencyForWord(text, this.state.wordToSearch);
-        const mostFrequentNWords = this.analyzer.calculateMostFrequentNWords(text, this.state.numberOfResults);
+    wordToSearchChange(wordToSearch: string) {
+        this.setState({
+            wordToSearch
+        }, () => this.state.analysed && this.analyse());
+    }
+
+    numberOfResultsChange(numberOfResults: number) {
+        this.setState({
+            numberOfResults,
+        }, () => this.state.analysed && this.analyse());
+    }
+
+    setTextInput(text: string) {
+        this.setState({
+            text,
+        }, this.analyse);
+    }
+
+    analyse() {
+        const highestFrequency = this.analyzer.calculateHighestFrequency(this.state.text);
+        const frequencyForWord = this.analyzer.calculateFrequencyForWord(this.state.text, this.state.wordToSearch);
+        const mostFrequentNWords = this.analyzer.calculateMostFrequentNWords(this.state.text, this.state.numberOfResults);
 
         this.setState({
             analysed: true,
@@ -57,15 +85,16 @@ class App extends React.Component<{}, AppState> {
     render() {
         return (
         <div className="bg-gray-900 h-screen antialiased">
-            <main className="max-w-7xl mx-auto">
+            <main className="max-w-7xl mx-auto px-4 xl:px-0">
                 <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-cyan-600 font-extrabold md:text-7xl text-5xl">
                     Counting words
                 </h1>
                 <section className="pt-4 md:grid grid-cols-2 xl:grid-cols-3 gap-6">
                     <div className="xl:col-span-2">
-                        <TextForm analyse={this.analyse} />
+                        <TextForm analyse={this.setTextInput} />
                     </div>
                     <div className="mt-4 md:mt-0">
+                        <Searchbar onWordChange={this.wordToSearchChange} onNChange={this.numberOfResultsChange} />
                         {this.state.analysed
                             ? <Results results={this.state.results} wordToSearch={this.state.wordToSearch} />
                             : <Alert children="Nothing to analyse" />}

@@ -9,7 +9,7 @@ type ResultsProp = {
 
 function Number(props: {number: number, text?: string}) {
     return (
-        <div className="text-gray-700">
+        <div className="text-gray-700 p-2">
             <div className="text-center text-5xl">
                 {props.number}
             </div>
@@ -18,17 +18,31 @@ function Number(props: {number: number, text?: string}) {
     );
 }
 
+function Row(props: {title: string, number: number}) {
+    return (
+        <div className="grid grid-cols-2 gap-2 border-b border-gray-100 last:border-b-0 px-3 py-2 text-gray-700">
+            <p className="truncate">
+                {props.title}
+            </p>
+            <p>
+                {props.number}
+            </p>
+        </div>
+    );
+}
+
 class Results extends React.Component<ResultsProp, {}> {
     render() {
         return (
-            <div className="flex flex-col gap-4">
-                <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-cyan-600 font-extrabold md:text-5xl text-3xl">
+            <section className="flex flex-col gap-4">
+                <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-cyan-600 font-extrabold md:text-4xl text-2xl">
                     Results
                 </h2>
                 <Card title="Highest frequency" children={<Number number={this.props.results.highestFrequency} />} />
                 {this.props.wordToSearch && 
                     <Card title="Frequency for word" children={<Number text={this.props.wordToSearch} number={this.props.results.frequencyForWord} />} />}
-            </div>
+                <Card title="Most frequent N words" children={this.props.results.mostFrequentNWords.map(result => <Row key={result.getWord()} title={result.getWord()} number={result.getFrequency()} />)} />
+            </section>
         );
     }
 }

@@ -12,7 +12,7 @@ class Card extends React.Component<CardProps, {}> {
                 <div className="text-gray-700 text-xl p-2 border-b-2 border-gray-200">
                     {this.props.title}
                 </div>
-                <div className="p-2">
+                <div>
                     {this.props.children}
                 </div>
             </div>

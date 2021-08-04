@@ -17,6 +17,10 @@ class TextForm extends React.Component<TextFormProps, TextFormState> {
             text: '',
         };
 
+        this.bindFunctions();
+    }
+
+    private bindFunctions() {
         this.handleInput = this.handleInput.bind(this);
         this.sendForm = this.sendForm.bind(this);
     }
