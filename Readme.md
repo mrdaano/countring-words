@@ -12,7 +12,7 @@ The front end can be found in part two. The front end uses part one. To start th
 ## Libraries and frameworks used
 For this test I used a few libraries and frameworks. They are listed below:
 - **typescript**: for typings in JavaScript;
-- **mocha**: testting framework for writing unit tests;
+- **mocha**: testing framework for writing unit tests;
 - **react**: for building the front end;
 - **craco**: to override React configuration;
 - **react-app-rewire-alias**: to load Typescript modules which are outside the `src/` dir;
