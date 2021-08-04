@@ -84,12 +84,12 @@ class App extends React.Component<{}, AppState> {
 
     render() {
         return (
-        <div className="bg-gray-900 h-screen antialiased">
+        <div className="bg-gray-900 min-h-screen antialiased">
             <main className="max-w-7xl mx-auto px-4 xl:px-0">
                 <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-cyan-600 font-extrabold md:text-7xl text-5xl">
                     Counting words
                 </h1>
-                <section className="pt-4 md:grid grid-cols-2 xl:grid-cols-3 gap-6">
+                <section className="pt-4 md:grid grid-cols-2 xl:grid-cols-3 gap-6 pb-4">
                     <div className="xl:col-span-2">
                         <TextForm analyse={this.setTextInput} />
                     </div>
